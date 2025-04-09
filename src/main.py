@@ -8,7 +8,6 @@ from langchain_core.messages import HumanMessage, AIMessage
 from dotenv import load_dotenv
 load_dotenv(dotenv_path="config.env")
 
-
 # para MCP
 from langchain_community.agent_toolkits.load_tools import load_tools
 from langchain.agents import initialize_agent, AgentType
@@ -21,12 +20,6 @@ google_api_key = os.environ.get("GOOGLE_API_KEY")
 
 # Instanciar Modelo
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=google_api_key)
-
-
-def maketxt(texto):
-    with open(f"1.txt", "w", encoding="utf-8") as f:
-        f.write(texto)
-    print("Archivo guardado con éxito.")
 
 # Crear un prompt para el modelo
 prompt = ChatPromptTemplate.from_messages([
@@ -47,7 +40,6 @@ def run():
     chat_history = []
     interacciones = 0 # Variable que cuenta las interacciones
     max_interacciones = 25 # Numero maximo de interacciones antes de resetear
-
 
     while True:
         # Obtener la entrada del usuario
@@ -86,11 +78,6 @@ def run():
         chat_history.append(HumanMessage(content=user_input))
         chat_history.append(AIMessage(content=response.content))
         interacciones += 1 # Sumar una interaccion
-
-
-        #with open("historial_conversacion.txt", "a") as f:
-        #    f.write(f"Tú: {user_input}\n")
-        #    f.write(f"IA: {response['text']}\n")
         
         # Imprimir la respuesta de la IA
         print("IA:", response.content)
