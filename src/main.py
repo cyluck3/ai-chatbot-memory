@@ -4,6 +4,11 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 
+# Para cargar variables de entorno
+from dotenv import load_dotenv
+load_dotenv(dotenv_path="config.env")
+
+
 # para MCP
 from langchain_community.agent_toolkits.load_tools import load_tools
 from langchain.agents import initialize_agent, AgentType
@@ -12,7 +17,7 @@ from langchain.agents import initialize_agent, AgentType
 # Pero con otros modelos superiores sí puedo 
 
 # Configurar API del MODElO de IA a usar
-google_api_key = "AIzaSyDvjkmxyBXkoR3TwCIJA2MXSBVvxA_13TY"
+google_api_key = os.environ.get("GOOGLE_API_KEY")
 
 # Instanciar Modelo
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=google_api_key)
